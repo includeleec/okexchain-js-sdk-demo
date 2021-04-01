@@ -134,6 +134,9 @@ const App = () => {
 
   const handleDeposit = async () => {
     if (okAccount) {
+
+      const sequenceNumber = await okAccount.getSequenceNumber(publicKey)
+
       const msg = [
         {
           type: "okexchain/staking/MsgDeposit",
@@ -141,7 +144,7 @@ const App = () => {
             delegator_address: publicKey,
             quantity: {
               denom: "okt",
-              amount: "0.000500000000000000",
+              amount: okAccount.formatNumber(0.01),
             },
           },
         },
@@ -152,7 +155,7 @@ const App = () => {
       const memo = "";
       const fee = defaultFee;
 
-      const signedTx = await okAccount.buildTransaction(msg, msg, memo, fee);
+      const signedTx = await okAccount.buildTransaction(msg, msg, memo, fee, sequenceNumber);
       console.log("deposit signed tx", signedTx);
       const res = await okAccount.sendTransaction(signedTx);
       console.log("deposit res", res);
