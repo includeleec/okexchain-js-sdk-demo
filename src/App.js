@@ -34,6 +34,22 @@ const defaultMainnetFee = {
 };
 const defaultFee = defaultMainnetFee;
 
+
+const serverUrl = "https://exchaintest.okexcn.com"
+const serverUrlMainnet = "https://www.okex.com"
+
+const clientConfig = {
+  chainId: "okexchain-65",
+  relativePath: "/okexchain-test/v1",
+  isMainnet: false,
+}
+
+const clientConfigMainnet = {
+  chainId: "okexchain-66",
+  relativePath: "/okexchain/v1",
+  isMainnet: true,
+}
+
 const App = () => {
   const [pw, setPW] = useState("Ok12345678");
   const [privateKey, setPrivateKey] = useState("");
@@ -44,11 +60,7 @@ const App = () => {
   // ok account okt balance
   const [balance, setBalance] = useState(0);
 
-  const okClient = new OKEXChainClient("https://exchaintest.okexcn.com", {
-    chainId: "okexchain-65",
-    relativePath: "/okexchain-test/v1",
-    isMainnet: false,
-  });
+  const okClient = new OKEXChainClient(serverUrlMainnet, clientConfigMainnet);
   // console.log('okClient', okClient)
 
   // load keystore json file
